@@ -342,7 +342,12 @@ void showBottomBar()
     String totalEnergyName;
     String totaPowerName;
     for (int i = 0; i < (sizeof(haFloatSensors) / sizeof(haFloatSensors[0])); i++){
-        if (haFloatSensors[i].entityType == sensor_type::ENERGYMETER)
+        if (haFloatSensors[i].entityType == sensor_type::ENERGYMETERIFXDB)
+        {
+            totalEnergy = totalEnergy + getLast30DayEnergyUsage(haFloatSensors[i].entityID);
+            totalEnergyName = haFloatSensors[i].entityName;
+        }
+        else if (haFloatSensors[i].entityType == sensor_type::ENERGYMETER)
         {
             totalEnergy = totalEnergy + getSensorFloatValue(haFloatSensors[i].entityID);
             totalEnergyName = haFloatSensors[i].entityName;
@@ -358,7 +363,7 @@ void showBottomBar()
     // first one 
     if (totalEnergy != 0)
     {
-        drawBottomTile(x, y, String(totalEnergy) + " kWh", totalEnergyName);
+        drawBottomTile(x, y, String((int)totalEnergy) + " kWh", totalEnergyName);
         x = x + BOTTOM_TILE_WIDTH;
         tiles--;
     }
@@ -519,6 +524,7 @@ void drawHAScreen()
 
 void setup()
 {
+    Serial.begin(115200);
     currentFont = OpenSans9B;
     epd_init(EPD_OPTIONS_DEFAULT);
     hl = epd_hl_init(WAVEFORM);

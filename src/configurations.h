@@ -2,7 +2,7 @@
 enum entity_state {ON, OFF, ERROR, UNAVAILABLE};
 enum entity_type {SWITCH, LIGHT, METER, SENSOR, EXFAN, FAN, AIRPURIFIER, WATERHEATER, PLUG, AIRCONDITIONER};
 enum entity_state_type {ONOFF, VALUE};
-enum sensor_type {DOOR, MOTION, ENERGYMETER, TEMP, ENERGYMETERPWR};
+enum sensor_type {DOOR, MOTION, ENERGYMETER, TEMP, ENERGYMETERPWR, ENERGYMETERIFXDB};
 struct HAEntities{
     String entityName;
     String entityID;
@@ -23,6 +23,7 @@ struct HAConfigurations{
 // Change to your WiFi credentials
 const char* ssid        = "WIFI SSID";
 const char* password    = "WIFI PASSWORD";
+
 
 // url to HA server. Only http is supported for now!
 const String ha_server  = "http://192.168.2.138:8123";
@@ -80,9 +81,12 @@ HAEntities haSensors[] {
  *  Or you can customize the code the way you see fit (advanced)
 **/
 HAEntities haFloatSensors[] {
-    {"TOTAL ENERGY TODAY", "sensor.energy_meter_floor_03_energy_today", ENERGYMETER, VALUE},
-    {"TOTAL ENERGY TODAY", "sensor.tasmota_energy_today", ENERGYMETER, VALUE},
-    {"TOTAL ENERGY TODAY", "sensor.energy_meter_floor_01_energy_today", ENERGYMETER, VALUE},
+    //{"TOTAL ENERGY TODAY", "sensor.energy_meter_floor_03_energy_today", ENERGYMETER, VALUE},
+    //{"TOTAL ENERGY TODAY", "sensor.tasmota_energy_today", ENERGYMETER, VALUE},
+    //{"TOTAL ENERGY TODAY", "sensor.energy_meter_floor_01_energy_today", ENERGYMETER, VALUE},
+    {"TOTAL ENERGY LAST 30", "energy_meter_floor_03_energy_today", ENERGYMETERIFXDB, VALUE},
+    {"TOTAL ENERGY LAST 30", "tasmota_energy_today", ENERGYMETERIFXDB, VALUE},
+    {"TOTAL ENERGY LAST 30", "energy_meter_floor_01_energy_today", ENERGYMETERIFXDB, VALUE},
     {"CURRENT POWER", "sensor.energy_meter_floor_03_energy_power", ENERGYMETERPWR, VALUE},
     {"CURRENT POWER", "sensor.energy_meter_floor_02_energy_power", ENERGYMETERPWR, VALUE},
     {"CURRENT POWER", "sensor.energy_meter_floor_01_energy_power", ENERGYMETERPWR, VALUE},

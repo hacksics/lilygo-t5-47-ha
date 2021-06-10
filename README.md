@@ -1,4 +1,4 @@
-# Home Assistant (HA) Dashboardf for LilyGo T5 4.7 Inch E-Paper Screen
+# Home Assistant (HA) Dashboard for LilyGo T5 4.7 Inch E-Paper Screen
 
 ![](IMG_2747.jpg)
 
