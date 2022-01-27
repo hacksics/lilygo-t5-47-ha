@@ -51,6 +51,7 @@ HAConfigurations getHaStatus()
         return haConfigs;
     }
     DynamicJsonDocument doc(4096);
+    StaticJsonDocument<64> filter;
     // Filter JSON data to save RAM
     filter["time_zone"] = true;
     filter["version"] = true;
