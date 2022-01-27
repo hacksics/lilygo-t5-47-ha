@@ -51,7 +51,12 @@ HAConfigurations getHaStatus()
         return haConfigs;
     }
     DynamicJsonDocument doc(4096);
-    DeserializationError error = deserializeJson(doc, http.getStream());
+    StaticJsonDocument<64> filter;
+    // Filter JSON data to save RAM
+    filter["time_zone"] = true;
+    filter["version"] = true;
+    filter["state"] = true;
+    DeserializationError error = deserializeJson(doc, http.getStream(), DeserializationOption::Filter(filter));
     if (error)
     {
         Serial.print(F("deserializeJson() failed: "));
